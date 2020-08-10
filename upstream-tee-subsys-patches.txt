@@ -5,6 +5,21 @@ This is a list of all the patches that relates to the TEE subsystem. The
 text inside the brackets are the kernel version where it was introduced,
 followed by the sha1 hash in the upstream kernel tree.
 
+[v5.8-rc1] d8ed45c5dcd45 mmap locking API: use coccinelle to convert mmap_sem rwsem call sites
+[v5.8-rc1] 60b4000f54649 tee: fix crypto select
+[v5.8-rc1] c5b4312bea5d5 tee: optee: Add support for session login client UUID generation
+[v5.8-rc1] e33bcbab16d1c tee: add support for session's client UUID generation
+[v5.8-rc1] 104edb94cc4b3 tee: add private login method for kernel clients
+[v5.8-rc1] 2a6ba3f794e89 tee: enable support to register kernel memory
+[v5.8-rc1] 1115899e7aad7 tee: remove unnecessary NULL check in tee_shm_alloc()
+[v5.7-rc1] 758ecf13a41a9 tee: tee_shm_op_mmap(): use TEE_SHM_USER_MAPPED
+[v5.7-rc1] 5271b2011e448 tee: remove redundant teedev in struct tee_shm
+[v5.7-rc1] f1bbacedb0af6 tee: don't assign shm id for private shms
+[v5.7-rc1] c180f9bbe29a4 tee: remove unused tee_shm_priv_alloc()
+[v5.7-rc1] 59a135f6fb669 tee: remove linked list of struct tee_shm
+[v5.6] 36fa3e50085e3 tee: amdtee: out of bounds read in find_session()
+[v5.6-rc5] b83685bceedbe tee: amdtee: fix memory leak in amdtee_open_session()
+[v5.6-rc4] 872d92dec353a tee: amdtee: amdtee depends on CRYPTO_DEV_CCP_DD
 [v5.5] 9e0caab8e0f9 tee: optee: Fix compilation issue with nommu
 [v5.5-rc7] 5a769f6ff439 optee: Fix multi page dynamic shm pool alloc
 [v5.5-rc1] 03212e347f94 tee: optee: fix device enumeration error handling
