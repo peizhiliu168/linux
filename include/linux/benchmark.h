@@ -1,3 +1,6 @@
+#ifndef _LINUX_BENCHMARK_H
+#define _LINUX_BENCHMARK_H
+
 #include <linux/timekeeping.h>
 
 /*
@@ -18,3 +21,4 @@ typedef struct sctrace {
     struct sctrace* next;
 } sctrace_t;
 
+#endif /* _LINUX_BENCHMARK_H */
