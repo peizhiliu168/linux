@@ -860,8 +860,16 @@ __SYSCALL(__NR_pidfd_getfd, sys_pidfd_getfd)
 #define __NR_faccessat2 439
 __SYSCALL(__NR_faccessat2, sys_faccessat2)
 
+// common/benchmark.c
+#define __NR_add_sctrace 440
+__SYSCALL(__NR_add_sctrace, sys_add_sctrace)
+#define __NR_get_sctrace 441
+__SYSCALL(__NR_get_sctrace, sys_get_sctrace)
+#define __NR_reset_sctrace 442
+__SYSCALL(__NR_reset_sctrace, sys_reset_sctrace)
+
 #undef __NR_syscalls
-#define __NR_syscalls 440
+#define __NR_syscalls 443
 
 /*
  * 32 bit systems traditionally used different

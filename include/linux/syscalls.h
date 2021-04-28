@@ -81,6 +81,7 @@ struct open_how;
 #include <linux/quota.h>
 #include <linux/key.h>
 #include <linux/personality.h>
+#include <linux/benchmark.h>
 #include <trace/syscall.h>
 
 #ifdef CONFIG_ARCH_HAS_SYSCALL_WRAPPER
@@ -1345,4 +1346,10 @@ int __sys_getsockopt(int fd, int level, int optname, char __user *optval,
 		int __user *optlen);
 int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
 		int optlen);
+
+// new syscall for benchmark
+asmlinkage long sys_add_sctrace(unsigned long id);
+asmlinkage long sys_get_sctrace(sctrace_t*);
+asmlinkage long sys_reset_sctrace(void);
+
 #endif
