@@ -11,7 +11,7 @@ sctrace_t* syscall_trace;
 /*
 
 */
-SYSCALL_DEFINE1(add_sctrace, unsigned long, id)
+long add_sctrace (unsigned long id)
 {
     sctrace_t* new_trace = kmalloc(sizeof(sctrace_t), GFP_KERNEL | GFP_NOWAIT);
     if (!new_trace){
@@ -19,7 +19,8 @@ SYSCALL_DEFINE1(add_sctrace, unsigned long, id)
         return 1;
     }
 
-    struct timespec64 ts = ns_to_timespec64(ktime_get_ns());
+    struct timespec64 ts;
+    ts = ns_to_timespec64(ktime_get_ns());
 
     memcpy((void*) &new_trace->id, (void*) &id, sizeof(unsigned long));
     memcpy((void*) &new_trace->ts, (void*) &ts, sizeof(struct timespec64));
@@ -33,17 +34,18 @@ SYSCALL_DEFINE1(add_sctrace, unsigned long, id)
     takes in a sctrace_t pointer to set with the trace.
     If no trace exists, return 1
 */
-SYSCALL_DEFINE1(get_sctrace, sctrace_t*, return_trace)
+long sys_get_sctrace(unsigned long return_trace)
 {
     if (debug) {printk("Getting trace...\n");}
-    (sctrace_t*) return_trace;
 
     if (!syscall_trace){
         if (debug) {printk("No trace to get\n");}
         return 1;
     }
 
-    return_trace = syscall_trace;
+    printk("notice meeeeeeeeeeeee: %d", syscall_trace->id );
+
+    return_trace = (unsigned long) syscall_trace;
     if(debug) {printk("Got trace.\n");}
     return 0;
 }
@@ -51,7 +53,7 @@ SYSCALL_DEFINE1(get_sctrace, sctrace_t*, return_trace)
 /*
     clears all the existing traces 
 */ 
-SYSCALL_DEFINE0(reset_sctrace)
+long reset_sctrace(void)
 {
     if(debug) {printk("Clearing existing traces...\n");}
     

@@ -21,4 +21,12 @@ typedef struct sctrace {
     struct sctrace* next;
 } sctrace_t;
 
+
+long add_sctrace(unsigned long id);
+
+long sys_get_sctrace(unsigned long return_trace);
+
+long reset_sctrace(void);
+
+
 #endif /* _LINUX_BENCHMARK_H */

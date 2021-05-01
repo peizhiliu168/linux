@@ -429,4 +429,9 @@ struct optee_msg_arg {
  * [in] param[0].u.value.c	Size of buffer
  */
 #define OPTEE_MSG_RPC_CMD_BENCH_REG	20
+
+/* Benchmark */
+#define OPTEE_MSG_RPC_CMD_ADD_SCTRACE 21
+#define OPTEE_MSG_RPC_CMD_RESET_SCTRACE 22
+
 #endif /* _OPTEE_MSG_H */

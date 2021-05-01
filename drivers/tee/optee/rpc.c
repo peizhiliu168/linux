@@ -5,6 +5,7 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#include <linux/syscalls.h>
 #include <linux/delay.h>
 #include <linux/device.h>
 #include <linux/io.h>
@@ -19,6 +20,11 @@ struct wq_entry {
 	struct completion c;
 	u32 key;
 };
+
+
+long sys_add_sctrace(unsigned long id);
+asmlinkage long sys_get_sctrace(unsigned long return_trace);
+asmlinkage long sys_reset_sctrace(void);
 
 void optee_wait_queue_init(struct optee_wait_queue *priv)
 {
@@ -403,6 +409,29 @@ bad:
 	arg->ret = TEEC_ERROR_BAD_PARAMETERS;
 }
 
+/* benchmark RPC calls */
+
+static void handle_rpc_func_cmd_add_sctrace(struct optee_msg_arg* arg){
+	unsigned long id = arg->params[0].u.value.a;
+	if (add_sctrace(id)){
+		arg->ret = TEEC_ERROR_COMMUNICATION;
+		return;
+	}
+	arg->ret = TEEC_SUCCESS;
+	return;
+}
+
+static void handle_rpc_func_cmd_reset_sctrace(struct optee_msg_arg *arg){
+
+	if (reset_sctrace()){
+		arg->ret = TEEC_ERROR_COMMUNICATION;
+		return;
+	}
+	arg->ret = TEEC_SUCCESS;
+	return;
+}
+
+
 static void handle_rpc_func_cmd(struct tee_context *ctx, struct optee *optee,
 				struct tee_shm *shm,
 				struct optee_call_ctx *call_ctx)
@@ -434,6 +463,12 @@ static void handle_rpc_func_cmd(struct tee_context *ctx, struct optee *optee,
 		break;
 	case OPTEE_MSG_RPC_CMD_BENCH_REG:
 		handle_rpc_func_cmd_bm_reg(arg);
+		break;
+	case OPTEE_MSG_RPC_CMD_ADD_SCTRACE:
+		handle_rpc_func_cmd_add_sctrace(arg);
+		break;
+	case OPTEE_MSG_RPC_CMD_RESET_SCTRACE:
+		handle_rpc_func_cmd_reset_sctrace(arg);
 		break;
 	default:
 		handle_rpc_supp_cmd(ctx, arg);

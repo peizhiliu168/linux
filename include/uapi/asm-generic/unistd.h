@@ -860,7 +860,7 @@ __SYSCALL(__NR_pidfd_getfd, sys_pidfd_getfd)
 #define __NR_faccessat2 439
 __SYSCALL(__NR_faccessat2, sys_faccessat2)
 
-// common/benchmark.c
+// system call benchmark
 #define __NR_add_sctrace 440
 __SYSCALL(__NR_add_sctrace, sys_add_sctrace)
 #define __NR_get_sctrace 441

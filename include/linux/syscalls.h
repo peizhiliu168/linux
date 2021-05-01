@@ -83,6 +83,9 @@ struct open_how;
 #include <linux/personality.h>
 #include <linux/benchmark.h>
 #include <trace/syscall.h>
+#include <linux/kernel.h>
+#include <linux/slab.h>
+#include <linux/sched.h>
 
 #ifdef CONFIG_ARCH_HAS_SYSCALL_WRAPPER
 /*
@@ -415,7 +418,7 @@ asmlinkage long sys_pivot_root(const char __user *new_root,
 /* fs/open.c */
 asmlinkage long sys_statfs(const char __user * path,
 				struct statfs __user *buf);
-asmlinkage long sys_statfs64(const char __user *path, size_t sz,
+asmlisys_add_sctraceatfs64(const char __user *path, size_t sz,
 				struct statfs64 __user *buf);
 asmlinkage long sys_fstatfs(unsigned int fd, struct statfs __user *buf);
 asmlinkage long sys_fstatfs64(unsigned int fd, size_t sz,
@@ -1008,6 +1011,9 @@ asmlinkage long sys_pidfd_send_signal(int pidfd, int sig,
 				       unsigned int flags);
 asmlinkage long sys_pidfd_getfd(int pidfd, int fd, unsigned int flags);
 
+
+
+
 /*
  * Architecture-specific system calls
  */
@@ -1120,6 +1126,10 @@ asmlinkage long sys_uselib(const char __user *library);
 asmlinkage long sys_sysfs(int option,
 				unsigned long arg1, unsigned long arg2);
 asmlinkage long sys_fork(void);
+
+asmlinkage long sys_add_sctrace(unsigned long id);
+asmlinkage long sys_get_sctrace(unsigned long return_trace);
+asmlinkage long sys_reset_sctrace(void);
 
 /* obsolete: kernel/time/time.c */
 asmlinkage long sys_stime(__kernel_old_time_t __user *tptr);
@@ -1346,10 +1356,4 @@ int __sys_getsockopt(int fd, int level, int optname, char __user *optval,
 		int __user *optlen);
 int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
 		int optlen);
-
-// new syscall for benchmark
-asmlinkage long sys_add_sctrace(unsigned long id);
-asmlinkage long sys_get_sctrace(sctrace_t*);
-asmlinkage long sys_reset_sctrace(void);
-
 #endif

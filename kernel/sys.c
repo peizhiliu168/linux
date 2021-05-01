@@ -43,6 +43,9 @@
 #include <linux/version.h>
 #include <linux/ctype.h>
 
+#include <linux/slab.h>
+#include <linux/benchmark.h>
+
 #include <linux/compat.h>
 #include <linux/syscalls.h>
 #include <linux/kprobes.h>
@@ -2695,3 +2698,39 @@ COMPAT_SYSCALL_DEFINE1(sysinfo, struct compat_sysinfo __user *, info)
 	return 0;
 }
 #endif /* CONFIG_COMPAT */
+
+
+/* System Call Benchmark */
+/*
+
+*/
+SYSCALL_DEFINE1(add_sctrace, unsigned long, id)
+{
+    if (add_sctrace(id)){
+		return 1;
+	}
+	return 0;
+}
+
+/*
+    takes in a sctrace_t pointer to set with the trace.
+    If no trace exists, return 1
+*/
+SYSCALL_DEFINE1(get_sctrace, unsigned long, return_trace)
+{
+	if (sys_get_sctrace(return_trace)){
+		return 1;
+	}
+	return 0;
+}
+
+/*
+    clears all the existing traces 
+*/ 
+SYSCALL_DEFINE0(reset_sctrace)
+{
+	if (reset_sctrace()){
+		return 1;
+	}
+	return 0;
+}
