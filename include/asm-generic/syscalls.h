@@ -22,10 +22,6 @@ asmlinkage long sys_mmap(unsigned long addr, unsigned long len,
 			unsigned long fd, off_t pgoff);
 #endif
 
-asmlinkage long sys_add_sctrace(unsigned long id);
-asmlinkage long sys_get_sctrace(unsigned long return_trace);
-asmlinkage long sys_reset_sctrace(void);
-
 #ifndef sys_rt_sigreturn
 asmlinkage long sys_rt_sigreturn(struct pt_regs *regs);
 #endif

@@ -21,11 +21,6 @@ struct wq_entry {
 	u32 key;
 };
 
-
-long sys_add_sctrace(unsigned long id);
-asmlinkage long sys_get_sctrace(unsigned long return_trace);
-asmlinkage long sys_reset_sctrace(void);
-
 void optee_wait_queue_init(struct optee_wait_queue *priv)
 {
 	mutex_init(&priv->mu);
@@ -413,7 +408,10 @@ bad:
 
 static void handle_rpc_func_cmd_add_sctrace(struct optee_msg_arg* arg){
 	unsigned long id = arg->params[0].u.value.a;
-	if (add_sctrace(id)){
+	unsigned long delta = arg->params[0].u.value.b;
+	unsigned int allocated = arg->params[0].u.value.c;
+
+	if (add_sctrace(id, delta, allocated)){
 		arg->ret = TEEC_ERROR_COMMUNICATION;
 		return;
 	}

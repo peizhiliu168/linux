@@ -22,7 +22,7 @@ typedef struct sctrace {
 } sctrace_t;
 
 
-long add_sctrace(unsigned long id);
+long add_sctrace(unsigned long id, unsigned long delta, unsigned int allocated);
 
 long sys_get_sctrace(unsigned long return_trace);
 

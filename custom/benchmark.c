@@ -9,15 +9,18 @@ int debug = 1;
 sctrace_t* syscall_trace;
 
 /*
-
+    adds a new trace into the syscall_trace
+    datastructure
 */
-long add_sctrace (unsigned long id)
+long add_sctrace(unsigned long id, unsigned long delta, unsigned int allocated)
 {
     sctrace_t* new_trace = kmalloc(sizeof(sctrace_t), GFP_KERNEL | GFP_NOWAIT);
     if (!new_trace){
         if (debug) {printk("Unable to allocate new trace.\n");}
         return 1;
     }
+
+    printk("id: %ld, delta: %ld, allocated: %ld\n");
 
     struct timespec64 ts;
     ts = ns_to_timespec64(ktime_get_ns());

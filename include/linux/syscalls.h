@@ -1127,7 +1127,7 @@ asmlinkage long sys_sysfs(int option,
 				unsigned long arg1, unsigned long arg2);
 asmlinkage long sys_fork(void);
 
-asmlinkage long sys_add_sctrace(unsigned long id);
+asmlinkage long sys_add_sctrace(unsigned long id, unsigned long delta, unsigned int allocated);
 asmlinkage long sys_get_sctrace(unsigned long return_trace);
 asmlinkage long sys_reset_sctrace(void);
 

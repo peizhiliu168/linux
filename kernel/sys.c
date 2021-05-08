@@ -2704,9 +2704,9 @@ COMPAT_SYSCALL_DEFINE1(sysinfo, struct compat_sysinfo __user *, info)
 /*
 
 */
-SYSCALL_DEFINE1(add_sctrace, unsigned long, id)
+SYSCALL_DEFINE3(add_sctrace, unsigned long, id, unsigned long, delta, unsigned int, allocated)
 {
-    if (add_sctrace(id)){
+    if (add_sctrace(id, delta, allocated)){
 		return 1;
 	}
 	return 0;
