@@ -20,7 +20,7 @@ long add_sctrace(unsigned long id, unsigned long delta, unsigned int allocated)
         return 1;
     }
 
-    printk("id: %ld, delta: %ld, allocated: %ld\n");
+    printk("id: %ld, delta: %ld, allocated: %ld\n", id, delta, allocated);
 
     struct timespec64 ts;
     ts = ns_to_timespec64(ktime_get_ns());
