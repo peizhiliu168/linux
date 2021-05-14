@@ -17,7 +17,9 @@
 */
 typedef struct sctrace {
     unsigned long id;
-    struct timespec64 ts;
+    unsigned long delta;
+    unsigned long allocated;
+    long ree_time;
     struct sctrace* next;
 } sctrace_t;
 

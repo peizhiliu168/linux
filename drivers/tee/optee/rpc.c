@@ -406,7 +406,8 @@ bad:
 
 /* benchmark RPC calls */
 
-static void handle_rpc_func_cmd_add_sctrace(struct optee_msg_arg* arg){
+static void handle_rpc_func_cmd_add_sctrace(struct optee_msg_arg* arg)
+{
 	unsigned long id = arg->params[0].u.value.a;
 	unsigned long delta = arg->params[0].u.value.b;
 	unsigned int allocated = arg->params[0].u.value.c;
@@ -419,8 +420,20 @@ static void handle_rpc_func_cmd_add_sctrace(struct optee_msg_arg* arg){
 	return;
 }
 
-static void handle_rpc_func_cmd_reset_sctrace(struct optee_msg_arg *arg){
+static void handle_rpc_func_cmd_get_sctrace(struct optee_msg_arg *arg)
+{
+	unsigned long return_trace = arg->params[0].u.value.a;
 
+	if (get_sctrace(return_trace)){
+		arg->ret = TEEC_ERROR_COMMUNICATION;
+		return;
+	}
+	arg->ret = TEEC_SUCCESS;
+	return;
+}
+
+static void handle_rpc_func_cmd_reset_sctrace(struct optee_msg_arg *arg)
+{
 	if (reset_sctrace()){
 		arg->ret = TEEC_ERROR_COMMUNICATION;
 		return;
@@ -464,6 +477,9 @@ static void handle_rpc_func_cmd(struct tee_context *ctx, struct optee *optee,
 		break;
 	case OPTEE_MSG_RPC_CMD_ADD_SCTRACE:
 		handle_rpc_func_cmd_add_sctrace(arg);
+		break;
+	case OPTEE_MSG_RPC_CMD_GET_SCTRACE:
+		handle_rpc_func_cmd_get_sctrace(arg);
 		break;
 	case OPTEE_MSG_RPC_CMD_RESET_SCTRACE:
 		handle_rpc_func_cmd_reset_sctrace(arg);

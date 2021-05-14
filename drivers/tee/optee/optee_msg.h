@@ -432,6 +432,7 @@ struct optee_msg_arg {
 
 /* Benchmark */
 #define OPTEE_MSG_RPC_CMD_ADD_SCTRACE 21
-#define OPTEE_MSG_RPC_CMD_RESET_SCTRACE 22
+#define OPTEE_MSG_RPC_CMD_GET_SCTRACE 22
+#define OPTEE_MSG_RPC_CMD_RESET_SCTRACE 23
 
 #endif /* _OPTEE_MSG_H */
