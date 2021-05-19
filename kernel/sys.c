@@ -2718,7 +2718,7 @@ SYSCALL_DEFINE3(add_sctrace, unsigned long, id, unsigned long, delta, unsigned i
 */
 SYSCALL_DEFINE1(get_sctrace, unsigned long, return_trace)
 {
-	if (sys_get_sctrace(return_trace)){
+	if (get_sctrace(return_trace)){
 		return 1;
 	}
 	return 0;

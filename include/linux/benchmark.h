@@ -21,12 +21,13 @@ typedef struct sctrace {
     unsigned long allocated;
     long ree_time;
     struct sctrace* next;
+    struct sctrace* prev;
 } sctrace_t;
 
 
 long add_sctrace(unsigned long id, unsigned long delta, unsigned int allocated);
 
-long sys_get_sctrace(unsigned long return_trace);
+long get_sctrace(unsigned long return_trace);
 
 long reset_sctrace(void);
 
